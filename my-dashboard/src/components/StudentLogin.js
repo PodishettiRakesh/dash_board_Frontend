@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const StudentLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // Implement your login logic here
-    console.log('Student Login:', { email, password });
+    try {
+      const response = await axios.post('http://localhost:5000/login', { email, password });
+      console.log('Student Login:', response.data);
+      if (response.data.message === 'Login successful') {
+        alert('Login successful');
+      } else {
+        alert('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Login failed');
+    }
   };
 
   return (
