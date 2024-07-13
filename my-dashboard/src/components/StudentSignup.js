@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const StudentSignup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignup = (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
     }
-    // Implement your signup logic here
-    console.log('Student Signup:', { email, password });
+    try {
+      const response = await axios.post('http://localhost:5000/signup', { email, password });
+      console.log('Student Signup:', response.data);
+      alert('Signup successful');
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert('Signup failed');
+    }
   };
 
   return (
