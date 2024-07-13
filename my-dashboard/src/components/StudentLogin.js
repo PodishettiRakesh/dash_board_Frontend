@@ -8,7 +8,7 @@ const StudentLogin = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('http://localhost:5000/auth/login', { email, password });
       console.log('Student Login:', response.data);
       if (response.data.message === 'Login successful') {
         alert('Login successful');
