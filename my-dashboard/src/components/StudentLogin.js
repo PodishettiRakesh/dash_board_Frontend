@@ -11,7 +11,7 @@ const StudentLogin = () => {
       const response = await axios.post('http://localhost:5000/auth/login', { email, password });
       console.log('Student Login:', response.data);
       if (response.data.message === 'Login successful') {
-        alert('Login successful');
+        navigate('/programs'); // Redirect to programs page after successful login
       } else {
         alert('Invalid credentials');
       }

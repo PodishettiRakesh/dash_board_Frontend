@@ -1,10 +1,12 @@
-// programs/Programs.js
+// components/Programs.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Programs = () => {
   const [programs, setPrograms] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPrograms();
@@ -12,30 +14,32 @@ const Programs = () => {
 
   const fetchPrograms = async () => {
     try {
-      const response = await axios.get('/api/programs'); // Assuming your backend endpoint for fetching programs is '/api/programs'
+      const response = await axios.get('http://localhost:5000/programs'); // Replace with your backend URL
       setPrograms(response.data);
     } catch (error) {
       console.error('Error fetching programs:', error);
-      // Handle error fetching programs
     }
+  };
+
+  const handleApplyClick = (programId) => {
+    navigate(`/apply/${programId}`); // Navigate to the apply page for the selected program
   };
 
   return (
     <div>
       <h1>Available Programs</h1>
-      <div className="program-list">
+      <ul>
         {programs.map((program) => (
-          <div key={program.program_id} className="program-card">
+          <li key={program.id}>
+            <h3>{program.name}</h3>
             <img src={program.image_url} alt={program.name} />
-            <div>
-              <h2>{program.name}</h2>
-              <p>Category: {program.category}</p>
-              <p>Duration: {program.duration} months</p>
-              <p>Start Date: {new Date(program.start_date).toLocaleDateString()}</p>
-            </div>
-          </div>
+            <p>Category: {program.category}</p>
+            <p>Duration: {program.duration}</p>
+            <p>Start Date: {program.start_date}</p>
+            <button onClick={() => handleApplyClick(program.id)}>Apply Now</button>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
