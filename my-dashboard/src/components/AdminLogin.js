@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // Implement your login logic here
-    console.log('Admin Login:', { email, password });
+    try {
+      const response = await axios.post('http://localhost:5000/admin/login', { email, password });
+      console.log('Admin Login:', response.data);
+      alert('Login successful');
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Login failed');
+    }
   };
 
   return (
