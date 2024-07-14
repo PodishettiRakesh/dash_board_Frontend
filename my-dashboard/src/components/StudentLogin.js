@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const StudentLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Call useNavigate at the top level of the component
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -11,7 +13,7 @@ const StudentLogin = () => {
       const response = await axios.post('http://localhost:5000/auth/login', { email, password });
       console.log('Student Login:', response.data);
       if (response.data.message === 'Login successful') {
-        alert('Login successful');
+        navigate('/programs'); // Use the navigate function here
       } else {
         alert('Invalid credentials');
       }
