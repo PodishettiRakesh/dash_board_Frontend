@@ -14,7 +14,7 @@ const Programs = () => {
 
   const fetchPrograms = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/programs'); // Replace with your backend URL
+      const response = await axios.get('http://localhost:5000/programs'); 
       setPrograms(response.data);
     } catch (error) {
       console.error('Error fetching programs:', error);
@@ -32,9 +32,9 @@ const Programs = () => {
         {programs.map((program) => (
           <li key={program.id}>
             <h3>{program.name}</h3>
-            <img src={program.image_url} alt={program.name} />
+            <img src={`http://localhost:5000${program.image_url}`} alt={program.name}/>
             <p>Category: {program.category}</p>
-            <p>Duration: {program.duration}</p>
+            <p>Duration: {program.duration+" Months"}</p>
             <p>Start Date: {program.start_date}</p>
             <button onClick={() => handleApplyClick(program.id)}>Apply Now</button>
           </li>
