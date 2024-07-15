@@ -6,6 +6,7 @@ import StudentSignup from './components/StudentSignup.js';
 import AdminLogin from './components/AdminLogin';
 import AdminSignup from './components/AdminSignup.js';
 import Programs from './components/Programs'; // Import Programs component
+import StudentApply from './components/StudentApply.js';
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/admin-signup" element={<AdminSignup />} />
       <Route path="/programs" element={<Programs />} /> {/* Route for Programs */}
+      <Route path="/apply/:programId" element={<StudentApply />} />
     </Routes>
   );
 };
