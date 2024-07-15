@@ -1,12 +1,14 @@
-// components/Programs.js
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Programs.css'; 
+import './Programs.css';
 
 const Programs = () => {
   const [programs, setPrograms] = useState([]);
+  const [filteredPrograms, setFilteredPrograms] = useState([]);
+  const [category, setCategory] = useState('');
+  const [duration, setDuration] = useState('');
+  const [startDate, setStartDate] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,28 +17,63 @@ const Programs = () => {
 
   const fetchPrograms = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/programs'); 
+      const response = await axios.get('http://localhost:5000/programs');
       setPrograms(response.data);
+      setFilteredPrograms(response.data); // Initialize filtered programs
     } catch (error) {
       console.error('Error fetching programs:', error);
     }
   };
 
+  useEffect(() => {
+    handleFilterChange();
+  }, [category, duration, startDate]);
+
+  const handleFilterChange = () => {
+    let filtered = programs;
+  
+    if (category) {
+      filtered = filtered.filter(program => program.category === category);
+    }
+    if (duration) {
+      filtered = filtered.filter(program => parseInt(program.duration) === parseInt(duration));
+    }
+    if (startDate) {
+      filtered = filtered.filter(program => program.start_date === startDate);
+    }
+  
+    setFilteredPrograms(filtered);
+  };
+  
+
   const handleApplyClick = (programId) => {
-    navigate(`/apply/${programId}`); // Navigate to the apply page for the selected program
+    navigate(`/apply/${programId}`);
   };
 
   return (
-    <div>
+    <div className="programs-container">
       <h1>Available Programs</h1>
-      <ul>
-        {programs.map((program) => (
-          <li key={program.id}>
+      <div className="filters">
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">All Categories</option>
+          <option value="Programming">Programming</option>
+          <option value="Mathematics">Mathematics</option>
+        </select>
+        <select value={duration} onChange={(e) => setDuration(e.target.value)}>
+          <option value="">All Durations</option>
+          <option value="9 months">9 months</option>
+          <option value="12 months">12 months</option>
+        </select>
+        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+      </div>
+      <ul className="program-list">
+        {filteredPrograms.map((program) => (
+          <li key={program.id} className="program-container">
             <h3>{program.name}</h3>
-            <img src={`http://localhost:5000/public${program.image_url}`} alt={program.name}/>
+            <img src={program.image_url} alt={program.name} className="program-image" />
             <p>Category: {program.category}</p>
-            <p>Duration: {program.duration+" Months"}</p>
-            <p>Start Date: {program.start_date}</p>
+            <p>Duration: {program.duration}</p>
+            <p>Start Date: {new Date(program.start_date).toLocaleDateString()}</p>
             <button onClick={() => handleApplyClick(program.id)}>Apply Now</button>
           </li>
         ))}
