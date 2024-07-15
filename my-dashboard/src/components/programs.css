@@ -4,9 +4,22 @@
     display: block;
     margin: 0 auto;
   }
+  
   .program-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
   }
+  
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
   
