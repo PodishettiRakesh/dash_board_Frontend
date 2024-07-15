@@ -32,7 +32,7 @@ const Programs = () => {
         {programs.map((program) => (
           <li key={program.id}>
             <h3>{program.name}</h3>
-            <img src={`http://localhost:5000${program.image_url}`} alt={program.name}/>
+            <img src={`http://localhost:5000/public${program.image_url}`} alt={program.name}/>
             <p>Category: {program.category}</p>
             <p>Duration: {program.duration+" Months"}</p>
             <p>Start Date: {program.start_date}</p>
