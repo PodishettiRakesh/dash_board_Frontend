@@ -39,8 +39,12 @@ const Programs = () => {
       filtered = filtered.filter(program => parseInt(program.duration) === parseInt(duration));
     }
     if (startDate) {
-      filtered = filtered.filter(program => program.start_date === startDate);
+      filtered = filtered.filter(program => {
+        const programStartDate = new Date(program.start_date).toISOString().slice(0, 10);
+        return new Date(programStartDate) <= new Date(startDate);
+      });
     }
+    
   
     setFilteredPrograms(filtered);
   };
