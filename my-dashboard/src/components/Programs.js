@@ -18,6 +18,7 @@ const Programs = () => {
   const fetchPrograms = async () => {
     try {
       const response = await axios.get('http://localhost:5000/programs');
+      console.log("Programs data:", response.data);
       setPrograms(response.data);
       setFilteredPrograms(response.data); // Initialize filtered programs
     } catch (error) {
@@ -50,8 +51,9 @@ const Programs = () => {
   };
   
 
-  const handleApplyClick = (programId) => {
-    navigate(`/apply/${programId}`);
+  const handleApplyClick = (program_id) => {
+    console.log("program Id clicked", program_id);
+    navigate(`/programs/apply/${program_id}`);
   };
 
   return (
@@ -72,13 +74,13 @@ const Programs = () => {
       </div>
       <ul className="program-list">
         {filteredPrograms.map((program) => (
-          <li key={program.id} className="program-container">
+          <li key={program.program_id} className="program-container">
             <h3>{program.name}</h3>
             <img src={program.image_url} alt={program.name} className="program-image" />
             <p>Category: {program.category}</p>
             <p>Duration: {program.duration}</p>
             <p>Start Date: {new Date(program.start_date).toLocaleDateString()}</p>
-            <button onClick={() => handleApplyClick(program.id)}>Apply Now</button>
+            <button onClick={() => handleApplyClick(program.program_id)}>Apply Now</button>
           </li>
         ))}
       </ul>

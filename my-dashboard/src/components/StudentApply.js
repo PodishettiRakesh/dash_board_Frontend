@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const Apply = () => {
-  const { programId } = useParams();
+const StudentApply = () => {
+  const { program_id } = useParams();
   const [email, setEmail] = useState(''); // State to store the email
   const [personalDetails, setPersonalDetails] = useState('');
   const [educationalBackground, setEducationalBackground] = useState('');
@@ -17,19 +17,21 @@ const Apply = () => {
     if (storedEmail) {
       setEmail(storedEmail);
     }
-  }, []); // Empty dependency array ensures this runs only on component mount
+    console.log("programId: ", program_id);
+  }, [program_id]); // Empty dependency array ensures this runs only on component mount
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/application/submit', {
-        programId,
+        program_id,
         email, // Include email in the submission data
         personalDetails,
         educationalBackground,
         statementOfPurpose,
       });
       console.log('Application submitted:', response.data);
+      alert("application successfully submitted");
       // Optionally redirect or show a confirmation message
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -81,4 +83,4 @@ const Apply = () => {
   );
 };
 
-export default Apply;
+export default StudentApply;
