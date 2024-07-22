@@ -13,6 +13,7 @@ const StudentLogin = () => {
       const response = await axios.post('http://localhost:5000/auth/login', { email, password });
       console.log('Student Login:', response.data);
       if (response.data.message === 'Login successful') {
+        localStorage.setItem('studentEmail', email);
         navigate('/programs'); // Use the navigate function here
       } else {
         alert('Invalid credentials');
