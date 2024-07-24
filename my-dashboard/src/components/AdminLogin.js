@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminLogin = () => {
@@ -11,6 +12,9 @@ const AdminLogin = () => {
       const response = await axios.post('http://localhost:5000/admin/login', { email, password });
       console.log('Admin Login:', response.data);
       alert('Login successful');
+      Navigate('/adminDashboard');
+
+      
     } catch (error) {
       console.error('Error during login:', error);
       alert('Login failed');
