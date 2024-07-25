@@ -56,9 +56,15 @@ const Programs = () => {
     navigate(`/programs/apply/${program_id}`);
   };
 
+  const handleDashboardClick = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="programs-container">
       <h1>Available Programs</h1>
+      <button onClick={handleDashboardClick} className="dashboard-button">Dashboard</button>
+
       <div className="filters">
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
