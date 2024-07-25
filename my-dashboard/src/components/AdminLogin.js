@@ -5,6 +5,7 @@ import axios from 'axios';
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -12,7 +13,11 @@ const AdminLogin = () => {
       const response = await axios.post('http://localhost:5000/admin/login', { email, password });
       console.log('Admin Login:', response.data);
       alert('Login successful');
-      Navigate('/adminDashboard');
+      if (response.data.message === 'Login successful') {
+        alert('Login successful');
+        navigate('/admin-dashboard'); // Navigate to AdminDashboard
+      }
+      
 
       
     } catch (error) {
