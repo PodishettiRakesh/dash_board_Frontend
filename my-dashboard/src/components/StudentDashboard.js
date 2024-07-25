@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './StudentDashboard.css'; // Import appropriate CSS
 
 const StudentDashboard = () => {
   const [applications, setApplications] = useState([]);
@@ -8,8 +7,15 @@ const StudentDashboard = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       const email = localStorage.getItem('studentEmail'); // Retrieve email from localStorage
+      console.log(email, "email email email");
+
+      if (!email) {
+        console.error('No email found in localStorage');
+        return;
+      }
+
       try {
-        const response = await axios.get(`http://localhost:5000/application/student?email=${email}`);
+        const response = await axios.get(`http://localhost:5000/application/student/${email}`);
         console.log('API RESPONSE DATA:', response.data);
         setApplications(response.data);
       } catch (error) {
@@ -36,15 +42,15 @@ const StudentDashboard = () => {
         <tbody>
           {applications.map((application) => (
             <tr key={application.program_id}>
-                <td>{application.program_id}</td>
-                <td>{application.program_name}</td>
-                <td>{application.email}</td>
-                <td>{application.status}</td>
-                <td>
+              <td>{application.program_id}</td>
+              <td>{application.program_name}</td>
+              <td>{application.email}</td>
+              <td>{application.status}</td>
+              <td>
                 {application.status === 'accepted' && (
-                    <button onClick={() => handlePayNow(application.program_id)}>Pay Now</button>
+                  <button onClick={() => handlePayNow(application.program_id)}>Pay Now</button>
                 )}
-                </td>
+              </td>
             </tr>
           ))}
         </tbody>
