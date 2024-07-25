@@ -8,6 +8,7 @@ import AdminSignup from './components/AdminSignup.js';
 import Programs from './components/Programs'; // Import Programs component
 import StudentApply from './components/StudentApply.js';
 import AdminDashboard from './components/AdminDashboard.js';
+import Dashboard from './components/StudentDashboard.js';
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
       <Route path="/programs" element={<Programs />} /> {/* Route for Programs */}
       <Route path="/programs/apply/:program_id" element={<StudentApply />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} /> 
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 };
