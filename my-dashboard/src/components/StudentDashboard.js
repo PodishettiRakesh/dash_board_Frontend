@@ -1,50 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-// import './Dashboard.css';
+// import './StudentDashboard.css'; // Import appropriate CSS
 
-const Dashboard = () => {
+const StudentDashboard = () => {
   const [applications, setApplications] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchApplications = async () => {
+      const email = localStorage.getItem('studentEmail'); // Retrieve email from localStorage
+      try {
+        const response = await axios.get(`http://localhost:5000/application/student?email=${email}`);
+        console.log('API RESPONSE DATA:', response.data);
+        setApplications(response.data);
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+      }
+    };
+
     fetchApplications();
   }, []);
 
-  const fetchApplications = async () => {
-    try {
-      const token = localStorage.getItem('token'); // Assuming JWT token is stored in localStorage
-      const response = await axios.get('http://localhost:5000/student/applications', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setApplications(response.data);
-    } catch (error) {
-      console.error('Error fetching applications:', error);
-    }
-  };
-
-  const handlePaymentClick = (applicationId) => {
-    navigate(`/applications/${applicationId}/payment`);
-  };
-
   return (
-    <div className="dashboard-container">
-      <h1>My Applications</h1>
-      <ul className="application-list">
-        {applications.map((application) => (
-          <li key={application.id} className="application-container">
-            <p>Program ID: {application.program_id}</p>
-            <p>Status: {application.status}</p>
-            {application.status === 'accepted' && (
-              <button onClick={() => handlePaymentClick(application.id)}>Pay Now</button>
-            )}
-          </li>
-        ))}
-      </ul>
+    <div className="student-dashboard">
+      <h2>My Applications</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Program ID</th>
+            <th>Email</th>
+            <th>Personal Details</th>
+            <th>Educational Background</th>
+            <th>Statement of Purpose</th>
+            <th>Status</th>
+            <th>Submission Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {applications.map((application) => (
+            <tr key={application.id}>
+              <td>{application.program_id}</td>
+              <td>{application.email}</td>
+              <td>{application.personal_details}</td>
+              <td>{application.educational_background}</td>
+              <td>{application.statement_of_purpose}</td>
+              <td>{application.status}</td>
+              <td>{new Date(application.submission_date).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default Dashboard;
+export default StudentDashboard;
