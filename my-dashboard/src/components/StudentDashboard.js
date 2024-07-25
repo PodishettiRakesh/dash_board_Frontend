@@ -27,24 +27,24 @@ const StudentDashboard = () => {
         <thead>
           <tr>
             <th>Program ID</th>
+            <th>Program Name</th>
             <th>Email</th>
-            <th>Personal Details</th>
-            <th>Educational Background</th>
-            <th>Statement of Purpose</th>
             <th>Status</th>
-            <th>Submission Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {applications.map((application) => (
-            <tr key={application.id}>
-              <td>{application.program_id}</td>
-              <td>{application.email}</td>
-              <td>{application.personal_details}</td>
-              <td>{application.educational_background}</td>
-              <td>{application.statement_of_purpose}</td>
-              <td>{application.status}</td>
-              <td>{new Date(application.submission_date).toLocaleDateString()}</td>
+            <tr key={application.program_id}>
+                <td>{application.program_id}</td>
+                <td>{application.program_name}</td>
+                <td>{application.email}</td>
+                <td>{application.status}</td>
+                <td>
+                {application.status === 'accepted' && (
+                    <button onClick={() => handlePayNow(application.program_id)}>Pay Now</button>
+                )}
+                </td>
             </tr>
           ))}
         </tbody>
@@ -52,5 +52,7 @@ const StudentDashboard = () => {
     </div>
   );
 };
+
+
 
 export default StudentDashboard;
