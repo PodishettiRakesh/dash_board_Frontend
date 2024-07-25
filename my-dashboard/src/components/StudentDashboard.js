@@ -53,6 +53,9 @@ const StudentDashboard = () => {
   );
 };
 
-
+const handlePayNow = (programId) => {
+  console.log('Initiate payment for program ID:', programId);
+  // Implement payment logic here
+};
 
 export default StudentDashboard;
