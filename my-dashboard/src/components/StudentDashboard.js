@@ -28,8 +28,14 @@ const StudentDashboard = () => {
     fetchApplications();
   }, []);
 
-  const handlePayNow = (programId) => {
-    navigate(`/payment/${programId}`);
+  const handlePayNow = (application) => {
+    navigate('/payment', {
+      state: {
+        email: application.email,
+        programId: application.program_id,
+        programName: application.program_name,
+      },
+    });
   };
   
 
@@ -55,7 +61,7 @@ const StudentDashboard = () => {
               <td>{application.status}</td>
               <td>
                 {application.status === 'accepted' && (
-                  <button onClick={() => handlePayNow(application.program_id)}>Pay Now</button>
+                  <button onClick={() => handlePayNow(application)}>Pay Now</button>
                 )}
               </td>
             </tr>
