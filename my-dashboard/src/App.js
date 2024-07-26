@@ -24,6 +24,7 @@ const App = () => {
       <Route path="/programs/apply/:program_id" element={<StudentApply />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} /> 
       <Route path="/dashboard" element={<StudentDashboard />} />
+      <Route path="/payment/:programId" element={<PaymentPage />} />
       
     </Routes>
   );
