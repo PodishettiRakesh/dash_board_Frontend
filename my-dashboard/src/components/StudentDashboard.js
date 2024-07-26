@@ -29,7 +29,7 @@ const StudentDashboard = () => {
   }, []);
 
   const handlePayNow = (application) => {
-    navigate('/payment', {
+    navigate('/Payment/:id', {
       state: {
         email: application.email,
         programId: application.program_id,
