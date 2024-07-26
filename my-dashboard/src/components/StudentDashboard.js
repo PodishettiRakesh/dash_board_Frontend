@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const StudentDashboard = () => {
   const [applications, setApplications] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -26,6 +28,17 @@ const StudentDashboard = () => {
     fetchApplications();
   }, []);
 
+  const handlePayNow = (application) => {
+    navigate('/Payment/:id', {
+      state: {
+        email: application.email,
+        programId: application.program_id,
+        programName: application.program_name,
+      },
+    });
+  };
+  
+
   return (
     <div className="student-dashboard">
       <h2>My Applications</h2>
@@ -48,7 +61,7 @@ const StudentDashboard = () => {
               <td>{application.status}</td>
               <td>
                 {application.status === 'accepted' && (
-                  <button onClick={() => handlePayNow(application.program_id)}>Pay Now</button>
+                  <button onClick={() => handlePayNow(application)}>Pay Now</button>
                 )}
               </td>
             </tr>
@@ -59,9 +72,5 @@ const StudentDashboard = () => {
   );
 };
 
-const handlePayNow = (programId) => {
-  console.log('Initiate payment for program ID:', programId);
-  // Implement payment logic here
-};
 
 export default StudentDashboard;

@@ -9,6 +9,7 @@ import Programs from './components/Programs'; // Import Programs component
 import StudentApply from './components/StudentApply.js';
 import AdminDashboard from './components/AdminDashboard.js';
 import StudentDashboard from './components/StudentDashboard.js';
+import PaymentPage from './components/PaymentPage.js';
 
 
 const App = () => {
@@ -23,6 +24,8 @@ const App = () => {
       <Route path="/programs/apply/:program_id" element={<StudentApply />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} /> 
       <Route path="/dashboard" element={<StudentDashboard />} />
+      <Route path="/payment/:programId" element={<PaymentPage />} />
+      
     </Routes>
   );
 };
