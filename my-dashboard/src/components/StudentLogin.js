@@ -10,7 +10,7 @@ const StudentLogin = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/auth/login', { email, password });
+      const response = await axios.post('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/auth/login', { email, password });
       console.log('Student Login:', response.data);
       if (response.data.message === 'Login successful') {
         localStorage.setItem('studentEmail', email);
