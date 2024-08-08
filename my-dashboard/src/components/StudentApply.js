@@ -23,7 +23,7 @@ const StudentApply = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/application/submit', {
+      const response = await axios.post('http://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/application/submit', {
         program_id,
         email, // Include email in the submission data
         personalDetails,
