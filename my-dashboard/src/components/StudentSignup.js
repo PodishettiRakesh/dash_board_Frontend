@@ -13,7 +13,7 @@ const StudentSignup = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5000/auth/signup', { email, password });
+      const response = await axios.post('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/auth/signup', { email, password });
       console.log('Student Signup:', response.data);
       alert('Signup successful');
     } catch (error) {
