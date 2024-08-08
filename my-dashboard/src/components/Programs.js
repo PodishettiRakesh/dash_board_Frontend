@@ -17,7 +17,7 @@ const Programs = () => {
 
   const fetchPrograms = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/programs');
+      const response = await axios.get('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/programs');
       console.log("Programs data:", response.data);
       setPrograms(response.data);
       setFilteredPrograms(response.data); // Initialize filtered programs
