@@ -17,7 +17,7 @@ const StudentDashboard = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/application/student/${email}`);
+        const response = await axios.get(`https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/application/student/${email}`);
         console.log('API RESPONSE DATA:', response.data);
         setApplications(response.data);
       } catch (error) {
