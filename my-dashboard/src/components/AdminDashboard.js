@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
   const handleStatusChange = async (applicationId, status, email) => {
     try {
-      await axios.post(`http://localhost:5000/admin/applications/${applicationId}/status`, {
+      await axios.post(`https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/admin/applications/${applicationId}/status`, {
         status,
         email,
       });

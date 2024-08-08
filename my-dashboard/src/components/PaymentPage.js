@@ -30,7 +30,7 @@ const PaymentPage = () => {
 
     // Here you would typically send the payment details to your backend
     try {
-      const response = await axios.post('http://localhost:5000/payment', {
+      const response = await axios.post('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/payment', {
         email,
         programId,
         programName,

@@ -10,7 +10,7 @@ const AdminLogin = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/admin/login', { email, password });
+      const response = await axios.post('https://ec2-15-207-100-250.ap-south-1.compute.amazonaws.com:5000/admin/login', { email, password });
       console.log('Admin Login:', response.data);
       alert('Login successful');
       if (response.data.message === 'Login successful') {
